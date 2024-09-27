@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Loadify-Preloader
- * Plugin URL: https://www.demo.com/ws-preloader
+ * Plugin URL: https://github.com/aburiad/Loadify-Preloader
  * Text Domain: loadify-preloader
  * Domain Path: /languages/
  * Description: ws-preloader : A loading screen add-on for your WordPress website.
