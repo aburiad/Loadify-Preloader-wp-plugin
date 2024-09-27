@@ -1,4 +1,4 @@
-- Loadify-Preloader ===
+*A Wordpress Plugin*:
 **Loadify-Preloader** is a simple and lightweight WordPress plugin that adds a customizable preloader to your website. Preloaders provide a user-friendly experience by showing a loading screen while your website's content is loading. You can customize the appearance, select a preset image , and control where the preloader displays on your website (homepage, specific pages, posts, etc.).
 
 **Key Features**:
