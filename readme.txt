@@ -1,4 +1,4 @@
-=== Ws-Preloader ===
+=== Loadify-Preloader ===
 Contributors: Ahsan Riad
 Tags: preloader, loading screen, website loading, wordpress preloader
 Requires at least: 5.0
@@ -12,7 +12,7 @@ A customizable preloader plugin for your WordPress site, allowing you to display
 
 == Description ==
 
-**Ws-Preloader** is a simple and lightweight WordPress plugin that adds a customizable preloader to your website. Preloaders provide a user-friendly experience by showing a loading screen while your website's content is loading. You can customize the appearance, select a preset image , and control where the preloader displays on your website (homepage, specific pages, posts, etc.).
+**Loadify-Preloader** is a simple and lightweight WordPress plugin that adds a customizable preloader to your website. Preloaders provide a user-friendly experience by showing a loading screen while your website's content is loading. You can customize the appearance, select a preset image , and control where the preloader displays on your website (homepage, specific pages, posts, etc.).
 
 **Key Features**:
 - Enable/disable preloader with a single click
@@ -23,7 +23,7 @@ A customizable preloader plugin for your WordPress site, allowing you to display
 
 == Installation ==
 
-1. Upload the plugin files to the `/wp-content/plugins/ws-preloader` directory or install the plugin through the WordPress plugins screen directly.
+1. Upload the plugin files to the `/wp-content/plugins/Loadify-Preloader` directory or install the plugin through the WordPress plugins screen directly.
 2. Activate the plugin through the 'Plugins' screen in WordPress.
 3. Go to **Settings** -> **Preloader Setting** to configure the plugin.
 4. Customize your preloader by selecting presets, changing the text, and adjusting the settings.
@@ -51,7 +51,7 @@ No, the preloader is designed to be lightweight and will not significantly impac
 == Changelog ==
 
 = 1.0.0 =
-* Initial release of Ws-Preloader
+* Initial release of Loadify-Preloader
 * Add customizable preloader options (text, color, background, images)
 * Enable preloader on specific pages, posts, or the entire website
 
