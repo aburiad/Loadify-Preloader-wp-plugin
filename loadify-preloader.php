@@ -8,8 +8,12 @@
  * Version: 1.0.0
  * Author: Riad
  * Author URI: https://github.com/aburiad
- *
+ * License: GPL-2.0-or-later
+ * License URI: http://www.gnu.org/licenses/gpl-2.0.html
+ * Tested up to: 6.6
  */
+
+
 
 if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly

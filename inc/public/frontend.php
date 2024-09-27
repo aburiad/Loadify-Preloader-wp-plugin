@@ -20,7 +20,7 @@ class Frontend
     {
         // Fetch saved options data
         $data = get_option('options_data');
-        $decoded_data = json_decode($data);
+        $options = maybe_unserialize($data);
 
         // If the preloader shouldn't display, exit
         if (!$this->get_display()) {
@@ -28,11 +28,11 @@ class Frontend
         }
 
         // Fetch settings, and ensure variables are properly handled
-        $preloaderBg = isset($decoded_data->preloader_bg) ? $decoded_data->preloader_bg : '#ffffff';
-        $font_size = isset($decoded_data->font_size) ? $decoded_data->font_size : '16';
-        $font_color = isset($decoded_data->font_color) ? $decoded_data->font_color : '#000000';
-        $font_text = isset($decoded_data->font_text) ? $decoded_data->font_text : '';
-        $image_name = isset($decoded_data->image_name) ? $decoded_data->image_name : "";
+        $preloaderBg = isset($options['preloader_bg']) ? $options['preloader_bg'] : '#ffffff';
+        $font_size = isset($options['font_size']) ? $options['font_size'] : '16';
+        $font_color = isset($options['font_color']) ? $options['font_color'] : '#000000';
+        $font_text = isset($options['font_text']) ? $options['font_text'] : '';
+        $image_name = isset($options['image_name']) ? $options['image_name'] : "";
 
         ?>
         <div class="preloader" style="background-color: <?php echo esc_attr($preloaderBg); ?>;">
@@ -56,11 +56,11 @@ class Frontend
     {
         // Fetch saved options data
         $data = get_option('options_data');
-        $decoded_data = json_decode($data);
+        $options = maybe_unserialize($data);
 
         // Ensure the preloader status is set and valid
-        $preloader_status = isset($decoded_data->preloader_status) ? $decoded_data->preloader_status : '';
-        $currentpage = isset($decoded_data->selectdata) ? $decoded_data->selectdata : '';
+        $preloader_status = isset($options['preloader_status']) ? $options['preloader_status'] : '';
+        $currentpage = isset($options['selectdata']) ? $options['selectdata'] : '';
 
         if (empty($preloader_status)) {
             return false;
