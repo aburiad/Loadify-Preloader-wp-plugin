@@ -153,8 +153,9 @@ function my_plugin_get_google_fonts() {
 
                                 foreach ($google_fonts as $font) {
                                     $selected = ($font['family'] === $selected_font) ? 'selected="selected"' : '';
-                                    echo "<option value='{$font['family']}' $selected>{$font['family']}</option>";
+                                    echo '<option value="' . esc_attr($font['family']) . '" ' . esc_attr($selected) . '>' . esc_html($font['family']) . '</option>';
                                 }
+
                                 ?>
                             </select>
                         </div>
