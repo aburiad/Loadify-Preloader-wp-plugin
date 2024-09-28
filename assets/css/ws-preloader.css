@@ -111,6 +111,7 @@ input[type=radio]:checked ~ img{
 }
 .image-fields img {
     border: 1px solid transparent;
+    max-width: 50px;
 }
 
 /*dropdown*/

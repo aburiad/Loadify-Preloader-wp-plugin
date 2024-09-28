@@ -1,3 +1,17 @@
+<?php
+function my_plugin_get_google_fonts() {
+    $google_fonts = array(
+        array('family' => 'Roboto'),
+        array('family' => 'Open Sans'),
+        array('family' => 'Lato'),
+        array('family' => 'Montserrat'),
+        array('family' => 'Oswald'),
+        // Add more Google Fonts as needed
+    );
+
+    return $google_fonts;
+}
+?>
 <div class="setting-wrap">
     <h1 class="preloader-title"><?php echo esc_html(__('Preloader Setting', 'loadify-preloader')); ?></h1>
     <form action="#" method="post">
@@ -127,23 +141,44 @@
                             <input type="color" name="font_color"
                                    value="<?php echo esc_attr($options['font_color']); ?>"/>
                         </div>
+                        <div class="field-item">
+                            <label><?php esc_html_e('Choose Font', 'loadify-preloader'); ?></label>
+                            <select id="my_plugin_google_font" name="my_plugin_google_font">
+                                <?php
+                                // Fetch Google Fonts
+                                $google_fonts = my_plugin_get_google_fonts();
+
+                                // Get the saved font, default to 'Roboto' if none selected
+                                $selected_font = get_option('my_plugin_google_font', 'Roboto');
+
+                                foreach ($google_fonts as $font) {
+                                    $selected = ($font['family'] === $selected_font) ? 'selected="selected"' : '';
+                                    echo "<option value='{$font['family']}' $selected>{$font['family']}</option>";
+                                }
+                                ?>
+                            </select>
+                        </div>
                     </div>
                 </div>
                 <div id="tabs-4">
                     <div class="image-fields">
                         <label>
                             <input type="radio" name="image_name" value="<?php echo esc_url(WS_URL . 'assets/img/2.png'); ?>">
-                            <img src="<?php echo esc_url(WS_URL . 'assets/img/2.png'); ?>" alt="Image 1">
+                            <img src="<?php echo esc_url(WS_URL . 'assets/img/2.gif'); ?>" alt="Image 1">
                         </label>
 
                         <label>
-                            <input type="radio" name="image_name" value="<?php echo esc_url(WS_URL . 'assets/img/3.png'); ?>">
-                            <img src="<?php echo esc_url(WS_URL . 'assets/img/3.png'); ?>" alt="Image 1">
+                            <input type="radio" name="image_name" value="<?php echo esc_url(WS_URL . 'assets/img/3.gif'); ?>">
+                            <img src="<?php echo esc_url(WS_URL . 'assets/img/3.gif'); ?>" alt="Image 1">
                         </label>
 
                         <label>
-                            <input type="radio" name="image_name" value="<?php echo esc_url(WS_URL . 'assets/img/4.png'); ?>">
-                            <img src="<?php echo esc_url(WS_URL . 'assets/img/4.png'); ?>" alt="Image 1">
+                            <input type="radio" name="image_name" value="<?php echo esc_url(WS_URL . 'assets/img/4.gif'); ?>">
+                            <img src="<?php echo esc_url(WS_URL . 'assets/img/4.gif'); ?>" alt="Image 1">
+                        </label>
+                        <label>
+                            <input type="radio" name="image_name" value="<?php echo esc_url(WS_URL . 'assets/img/5.gif'); ?>">
+                            <img src="<?php echo esc_url(WS_URL . 'assets/img/5.gif'); ?>" alt="Image 1">
                         </label>
 
                     </div>
@@ -151,7 +186,6 @@
                         <h2><?php echo esc_html__("Selected Image", 'loadify-preloader'); ?></h2>
                         <img src="<?php echo esc_url($options['image_name']); ?>" alt="No image selected">
                     </div>
-
                 </div>
                 <div id="tabs-5">
                     <div class="field-item">
@@ -191,6 +225,13 @@ if (isset($_POST['submit']) && check_admin_referer('ws_preloader_nonce_action', 
     $options['image_name'] = $image_name;
     $options['pages_names'] = $pages_names;
     $options['selectdata'] = $selectdata;
+
+
+    // Capture the selected Google Font from the form
+    $google_font = isset($_POST['my_plugin_google_font']) ? sanitize_text_field(wp_unslash($_POST['my_plugin_google_font'])) : 'Roboto';
+
+    // Save the selected font to the database
+    update_option('my_plugin_google_font', $google_font);
 
     // Update the option in the database
     $encoded_data = serialize($options); // Use serialize instead of json_encode

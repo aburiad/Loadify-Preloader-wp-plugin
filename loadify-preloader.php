@@ -29,7 +29,7 @@ if (!defined('WS_VERSION')) {
     define('WS_VERSION', '1.0.0');
 }
 
-add_action('plugins_loaded', 'ws_preloader_init');
+add_action('plugins_loaded', 'ws_preloader_init',1);
 
 function ws_preloader_init() {
     require_once WS_DIR . '/inc/admin/admin.php';
@@ -39,6 +39,17 @@ function ws_preloader_init() {
     new \loadifypreloader\Frontend();
 }
 
+function my_plugin_enqueue_google_fonts() {
+    // Get the selected font from options
+    $selected_font = get_option('my_plugin_google_font', 'Roboto'); // Default to 'Roboto' if no font is selected
+
+    // Build Google Fonts URL
+    $font_url = 'https://fonts.googleapis.com/css?family=' . urlencode($selected_font);
+
+    // Enqueue the Google Font
+    wp_enqueue_style('my-plugin-google-font', $font_url, array(), null);
+}
+add_action('wp_enqueue_scripts', 'my_plugin_enqueue_google_fonts');
 
 
 

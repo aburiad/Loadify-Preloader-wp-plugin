@@ -37,7 +37,9 @@ class Frontend
         ?>
         <div class="preloader" style="background-color: <?php echo esc_attr($preloaderBg); ?>;">
             <div class="loader">
-                <img src="<?php echo esc_url($image_name); ?>" alt="Preloader Image">
+                <?php
+                if ($image_name == "") {
+                    ?>
                 <h2 style="font-size:<?php echo esc_attr($font_size) . 'px'; ?>; color:<?php echo esc_attr($font_color); ?>">
                     <?php
                     if (empty($font_text)) {
@@ -46,7 +48,13 @@ class Frontend
                         echo esc_html($font_text);
                     }
                     ?>
-                </h2>
+                    </h2><?php
+                } else {
+                    ?>
+                    <img src="<?php echo esc_url($image_name); ?>" alt="Preloader Image">
+                    <?php
+                }
+                ?>
             </div>
         </div>
         <?php
