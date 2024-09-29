@@ -8,33 +8,6 @@ class Admin
     {
         add_action('admin_menu', array($this, 'admin_menu'));
         add_action('admin_enqueue_scripts', array($this, 'load_admin_assets'));
-        add_action('admin_enqueue_scripts', array($this, 'my_plugin_enqueue_google_fonts'));
-        add_action('wp_head', array($this, 'my_plugin_custom_css'));
-    }
-    function my_plugin_custom_css() {
-        // Get the selected font
-        $selected_font = get_option('my_plugin_google_font', 'Roboto'); // Default to 'Roboto' if none selected
-
-        ?>
-        <style type="text/css">
-            .loader h2 {
-                font-family: '<?php echo esc_html($selected_font); ?>', sans-serif;
-            }
-        </style>
-        <?php
-    }
-
-
-    function my_plugin_enqueue_google_fonts()
-    {
-        // Get the selected font from options
-        $selected_font = get_option('my_plugin_google_font', 'Roboto'); // Default to 'Roboto' if no font is selected
-
-        // Build Google Fonts URL
-        $font_url = 'https://fonts.googleapis.com/css?family=' . urlencode($selected_font);
-
-        // Enqueue the Google Font
-        wp_enqueue_style('my-plugin-google-font', $font_url, array(), null);
     }
 
     // Add the settings page to the admin menu

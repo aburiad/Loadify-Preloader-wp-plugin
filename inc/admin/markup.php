@@ -1,5 +1,5 @@
 <?php
-function my_plugin_get_google_fonts() {
+function preloader_google_fonts() {
     $google_fonts = array(
         array('family' => 'Roboto'),
         array('family' => 'Open Sans'),
@@ -51,7 +51,6 @@ function my_plugin_get_google_fonts() {
             $options['selectdata'] = 'homepage';
         }
         ?>
-
         <div id="tabs" class="tab-wrapper">
             <ul class="tab-list">
                 <li><a href="#tabs-0">Preloader Status</a></li>
@@ -143,14 +142,12 @@ function my_plugin_get_google_fonts() {
                         </div>
                         <div class="field-item">
                             <label><?php esc_html_e('Choose Font', 'loadify-preloader'); ?></label>
-                            <select id="my_plugin_google_font" name="my_plugin_google_font">
+                            <select id="preloader_google_font" name="preloader_google_font">
                                 <?php
                                 // Fetch Google Fonts
-                                $google_fonts = my_plugin_get_google_fonts();
-
+                                $google_fonts = preloader_google_fonts();
                                 // Get the saved font, default to 'Roboto' if none selected
-                                $selected_font = get_option('my_plugin_google_font', 'Roboto');
-
+                                $selected_font = get_option($options['preloader_google_font'], 'Roboto');
                                 foreach ($google_fonts as $font) {
                                     $selected = ($font['family'] === $selected_font) ? 'selected="selected"' : '';
                                     echo '<option value="' . esc_attr($font['family']) . '" ' . esc_attr($selected) . '>' . esc_html($font['family']) . '</option>';
@@ -209,6 +206,7 @@ if (isset($_POST['submit']) && check_admin_referer('ws_preloader_nonce_action', 
     $image_name = isset($_POST['image_name']) ? esc_url_raw(wp_unslash($_POST['image_name'])) : '';
     $pages_names = isset($_POST['pages_names']) ? array_map('sanitize_text_field', wp_unslash($_POST['pages_names'])) : [];
     $selectdata = isset($_POST['selectdata']) ? sanitize_text_field(wp_unslash($_POST['selectdata'])) : '';
+    $google_font = isset($_POST['preloader_google_font']) ? sanitize_text_field(wp_unslash($_POST['preloader_google_font'])) : 'Roboto';
 
     // Retrieve existing options from the database
     $existing_data = get_option('options_data');
@@ -226,13 +224,8 @@ if (isset($_POST['submit']) && check_admin_referer('ws_preloader_nonce_action', 
     $options['image_name'] = $image_name;
     $options['pages_names'] = $pages_names;
     $options['selectdata'] = $selectdata;
+    $options['preloader_google_font'] = $google_font;
 
-
-    // Capture the selected Google Font from the form
-    $google_font = isset($_POST['my_plugin_google_font']) ? sanitize_text_field(wp_unslash($_POST['my_plugin_google_font'])) : 'Roboto';
-
-    // Save the selected font to the database
-    update_option('my_plugin_google_font', $google_font);
 
     // Update the option in the database
     $encoded_data = serialize($options); // Use serialize instead of json_encode
