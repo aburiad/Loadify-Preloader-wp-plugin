@@ -1,4 +1,5 @@
 <?php
+
 namespace loadifypreloader;
 
 class Frontend
@@ -13,7 +14,8 @@ class Frontend
     /**
      * Dynamically add Google Font and inline CSS for the preloader
      */
-    function preloader_font_add() {
+    function preloader_font_add()
+    {
         // Get the serialized options data
         $data = get_option('options_data');
         $options = maybe_unserialize($data);
@@ -86,6 +88,13 @@ class Frontend
         <!--
         <div class="preloader">
             <div class="dot"></div>
+        </div>
+        
+        <div class="dotscalepreloader">
+          <div class="dotscale"></div>
+          <div class="dotscale"></div>
+          <div class="dotscale"></div>
+          <div class="dotscale"></div>
         </div>
         -->
         <?php
