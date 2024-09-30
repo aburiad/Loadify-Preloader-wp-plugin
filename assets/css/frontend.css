@@ -22,3 +22,30 @@
     justify-content: center;
     align-items: center;
 }
+
+/*dot preloader */
+
+.preloader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.dot {
+    width: 20px;
+    height: 20px;
+    margin: 0 5px;
+    background-color: #333;
+    border-radius: 100%;
+    animation: scaleDot 1s infinite ease-in-out;
+}
+
+@keyframes scaleDot {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(2);
+    }
+}

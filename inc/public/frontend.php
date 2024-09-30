@@ -82,6 +82,12 @@ class Frontend
                 <?php } ?>
             </div>
         </div>
+
+        <!--
+        <div class="preloader">
+            <div class="dot"></div>
+        </div>
+        -->
         <?php
     }
 
