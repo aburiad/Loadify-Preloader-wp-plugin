@@ -102,25 +102,6 @@ function preloader_google_fonts() {
                             <input type="radio" name="selectdata" value="search" id="search"/>
                             <label for="search">Search Only </label>
                         </div>
-                        <div>
-                            <input type="radio" name="selectdata" value="specefic" id="specefic"/>
-                            <label for="specefic">Specefic Only </label>
-                            <div class="pages-item">
-                                <?php
-                                $pages = get_pages();
-                                foreach ($pages as $page) {
-                                    $checked = (in_array($page->post_title, (array)get_option('pages_names'))) ? 'checked' : '';
-                                    ?>
-                                    <label>
-                                        <input type="checkbox" name="pages_names[]"
-                                               value="<?php echo esc_attr($page->post_title); ?>" <?php echo esc_attr($checked); ?> />
-                                        <span><?php echo esc_html($page->post_title); ?></span>
-                                    </label>
-                                    <?php
-                                }
-                                ?>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <div id="tabs-3">

@@ -89,7 +89,7 @@ class Frontend
         <div class="preloader">
             <div class="dot"></div>
         </div>
-        
+
         <div class="dotscalepreloader">
           <div class="dotscale"></div>
           <div class="dotscale"></div>
@@ -126,6 +126,8 @@ class Frontend
                 return is_page();
             case 'post':
                 return is_single();
+            case 'specefic':
+                return is_page();
             case 'archive':
                 return is_archive();
             case 'search':
