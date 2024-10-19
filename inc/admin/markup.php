@@ -1,5 +1,8 @@
 <?php
-function preloader_google_fonts() {
+if (!defined('ABSPATH')) {
+    exit; // Exit if accessed directly
+}
+function loadifypreloader_google_fonts() {
     $google_fonts = array(
         array('family' => 'Roboto'),
         array('family' => 'Open Sans'),
@@ -13,12 +16,12 @@ function preloader_google_fonts() {
 }
 ?>
 <div class="setting-wrap">
-    <h1 class="preloader-title"><?php echo esc_html(__('Preloader Setting', 'loadify-preloader')); ?></h1>
+    <h1 class="preloader-title"><?php echo esc_html(__('Preloader Setting', 'loadifypreloader')); ?></h1>
     <form action="#" method="post">
-        <?php wp_nonce_field('ws_preloader_nonce_action', 'ws_preloader_nonce'); ?>
+        <?php wp_nonce_field('loadifypreloader_nonce_action', 'loadifypreloader_nonce'); ?>
         <?php
         // Fetch the options data and handle the case where no data is available.
-        $data = get_option('options_data');
+        $data = get_option('loadifypreloader_data');
         $options = maybe_unserialize($data);
 
         // If no data is available, initialize $options as an empty array
@@ -39,7 +42,7 @@ function preloader_google_fonts() {
             $options['preloader_bg'] = '#FFFFFF';
         }
         if (!isset($options['image_name'])) {
-            $options['image_name'] = WS_URL . "assets/img/default.png";
+            $options['image_name'] = loadifypreloader_URL . "assets/img/default.png";
         }
         if (!isset($options['preloader_status'])) {
             $options['preloader_status'] = '0';
@@ -64,14 +67,14 @@ function preloader_google_fonts() {
             <div class="tab-content">
                 <div id="tabs-0">
                     <div class="field-item">
-                        <label class="label_style"><?php esc_html_e('Preloader Status', 'loadify-preloader'); ?></label>
-                        <?php $selected = (get_option('preloader_status') == '1') ? 'checked' : ''; ?>
+                        <label class="label_style"><?php esc_html_e('Preloader Status', 'loadifypreloader'); ?></label>
+                        <?php $selected = ($options['preloader_status'] == '1') ? 'checked' : ''; ?>
                         <input type="checkbox" name="preloader_status" value="1" <?php echo esc_attr($selected); ?> />
                     </div>
                 </div>
                 <div id="tabs-1">
                     <div class="field-item">
-                        <h2><?php echo esc_html('Preset Comming', 'loadify-preloader') ?></h2>
+                        <h2><?php echo esc_html('Preset Comming', 'loadifypreloader') ?></h2>
                     </div>
                 </div>
                 <div id="tabs-2">
@@ -107,34 +110,39 @@ function preloader_google_fonts() {
                 <div id="tabs-3">
                     <div class="common-fields text-fields">
                         <div class="field-item">
-                            <label><?php esc_html_e('Change Text', 'loadify-preloader'); ?></label>
+                            <label><?php esc_html_e('Change Text', 'loadifypreloader'); ?></label>
                             <input type="text" name="font_text"
                                    value="<?php echo esc_attr($options['font_text']); ?>"/>
                         </div>
                         <div class="field-item">
-                            <label><?php esc_html_e('Font Size', 'loadify-preloader'); ?></label>
+                            <label><?php esc_html_e('Font Size', 'loadifypreloader'); ?></label>
                             <input type="number" name="font_size"
                                    value="<?php echo esc_attr($options['font_size']); ?>"/>
                         </div>
                         <div class="field-item">
-                            <label><?php esc_html_e('Color', 'loadify-preloader'); ?></label>
+                            <label><?php esc_html_e('Color', 'loadifypreloader'); ?></label>
                             <input type="color" name="font_color"
                                    value="<?php echo esc_attr($options['font_color']); ?>"/>
                         </div>
                         <div class="field-item">
-                            <label><?php esc_html_e('Choose Font', 'loadify-preloader'); ?></label>
-                            <select id="preloader_google_font" name="preloader_google_font">
-                                <?php
+                            <label><?php esc_html_e('Choose Font', 'loadifypreloader'); ?></label>
+                            <select id="preloader_google_font" name="loadifypreloader_google_font">
+                            <?php
                                 // Fetch Google Fonts
-                                $google_fonts = preloader_google_fonts();
-                                // Get the saved font, default to 'Roboto' if none selected
-                                $selected_font = get_option($options['preloader_google_font'], 'Roboto');
-                                foreach ($google_fonts as $font) {
-                                    $selected = ($font['family'] === $selected_font) ? 'selected="selected"' : '';
-                                    echo '<option value="' . esc_attr($font['family']) . '" ' . esc_attr($selected) . '>' . esc_html($font['family']) . '</option>';
-                                }
+                                $google_fonts = loadifypreloader_google_fonts();
 
+                                // Get the saved font option, default to 'Roboto' if none is selected
+                                $selected_font =  $options['loadifypreloader_google_font'];
+
+                                if (!empty($google_fonts)) {
+                                    foreach ($google_fonts as $font) {
+                                        // Check if the current font is the selected one
+                                        $selected = ($font['family'] == $selected_font) ? 'selected' : '';
+                                        echo '<option value="' . esc_attr($font['family']) . '" ' . $selected . '>' . esc_html($font['family']) . '</option>';
+                                    }
+                                }
                                 ?>
+
                             </select>
                         </div>
                     </div>
@@ -142,33 +150,33 @@ function preloader_google_fonts() {
                 <div id="tabs-4">
                     <div class="image-fields">
                         <label>
-                            <input type="radio" name="image_name" value="<?php echo esc_url(WS_URL . 'assets/img/2.png'); ?>">
-                            <img src="<?php echo esc_url(WS_URL . 'assets/img/2.gif'); ?>" alt="Image 1">
+                            <input type="radio" name="image_name" value="<?php echo esc_url(loadifypreloader_URL . 'assets/img/2.png'); ?>">
+                            <img src="<?php echo esc_url(loadifypreloader_URL . 'assets/img/2.gif'); ?>" alt="Image 1">
                         </label>
 
                         <label>
-                            <input type="radio" name="image_name" value="<?php echo esc_url(WS_URL . 'assets/img/3.gif'); ?>">
-                            <img src="<?php echo esc_url(WS_URL . 'assets/img/3.gif'); ?>" alt="Image 1">
+                            <input type="radio" name="image_name" value="<?php echo esc_url(loadifypreloader_URL . 'assets/img/3.gif'); ?>">
+                            <img src="<?php echo esc_url(loadifypreloader_URL . 'assets/img/3.gif'); ?>" alt="Image 1">
                         </label>
 
                         <label>
-                            <input type="radio" name="image_name" value="<?php echo esc_url(WS_URL . 'assets/img/4.gif'); ?>">
-                            <img src="<?php echo esc_url(WS_URL . 'assets/img/4.gif'); ?>" alt="Image 1">
+                            <input type="radio" name="image_name" value="<?php echo esc_url(loadifypreloader_URL . 'assets/img/4.gif'); ?>">
+                            <img src="<?php echo esc_url(loadifypreloader_URL . 'assets/img/4.gif'); ?>" alt="Image 1">
                         </label>
                         <label>
-                            <input type="radio" name="image_name" value="<?php echo esc_url(WS_URL . 'assets/img/5.gif'); ?>">
-                            <img src="<?php echo esc_url(WS_URL . 'assets/img/5.gif'); ?>" alt="Image 1">
+                            <input type="radio" name="image_name" value="<?php echo esc_url(loadifypreloader_URL . 'assets/img/5.gif'); ?>">
+                            <img src="<?php echo esc_url(loadifypreloader_URL . 'assets/img/5.gif'); ?>" alt="Image 1">
                         </label>
 
                     </div>
                     <div class="image-fields flex-unset">
-                        <h2><?php echo esc_html__("Selected Image", 'loadify-preloader'); ?></h2>
+                        <h2><?php echo esc_html__("Selected Image", 'loadifypreloader'); ?></h2>
                         <img src="<?php echo esc_url($options['image_name']); ?>" alt="No image selected">
                     </div>
                 </div>
                 <div id="tabs-5">
                     <div class="field-item">
-                        <label class="label_style"><?php esc_html__('Set Background', 'loadify-preloader'); ?></label>
+                        <label class="label_style"><?php esc_html__('Set Background', 'loadifypreloader'); ?></label>
                         <input type="color" name="preloader_bg" value="<?php echo esc_attr($options['preloader_bg'] ?? '#ffffff'); ?>"/>
                     </div>
                 </div>
@@ -177,7 +185,7 @@ function preloader_google_fonts() {
     </form>
 </div>
 <?php
-if (isset($_POST['submit']) && check_admin_referer('ws_preloader_nonce_action', 'ws_preloader_nonce')) {
+if (isset($_POST['submit']) && check_admin_referer('loadifypreloader_nonce_action', 'loadifypreloader_nonce')) {
     // Capture the form data
     $preloader_status = isset($_POST['preloader_status']) ? sanitize_text_field(wp_unslash($_POST['preloader_status'])) : '';
     $font_text = isset($_POST['font_text']) ? sanitize_text_field(wp_unslash($_POST['font_text'])) : '';
@@ -187,10 +195,10 @@ if (isset($_POST['submit']) && check_admin_referer('ws_preloader_nonce_action', 
     $image_name = isset($_POST['image_name']) ? esc_url_raw(wp_unslash($_POST['image_name'])) : '';
     $pages_names = isset($_POST['pages_names']) ? array_map('sanitize_text_field', wp_unslash($_POST['pages_names'])) : [];
     $selectdata = isset($_POST['selectdata']) ? sanitize_text_field(wp_unslash($_POST['selectdata'])) : '';
-    $google_font = isset($_POST['preloader_google_font']) ? sanitize_text_field(wp_unslash($_POST['preloader_google_font'])) : 'Roboto';
+    $google_font = isset($_POST['loadifypreloader_google_font']) ? sanitize_text_field(wp_unslash($_POST['loadifypreloader_google_font'])) : 'Roboto';
 
     // Retrieve existing options from the database
-    $existing_data = get_option('options_data');
+    $existing_data = get_option('loadifypreloader_data');
     $options = maybe_unserialize($existing_data); // Use maybe_unserialize instead of json_decode
     if (!is_array($options)) {
         $options = array();
@@ -205,12 +213,12 @@ if (isset($_POST['submit']) && check_admin_referer('ws_preloader_nonce_action', 
     $options['image_name'] = $image_name;
     $options['pages_names'] = $pages_names;
     $options['selectdata'] = $selectdata;
-    $options['preloader_google_font'] = $google_font;
+    $options['loadifypreloader_google_font'] = $google_font;
 
 
     // Update the option in the database
     $encoded_data = serialize($options); // Use serialize instead of json_encode
-    update_option('options_data', $encoded_data);
+    update_option('loadifypreloader_data', $encoded_data);
 }
 ?>
 
