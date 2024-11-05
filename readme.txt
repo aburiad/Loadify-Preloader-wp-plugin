@@ -1,6 +1,6 @@
 === Loadify-Preloader ===
 Contributors: ahsanriad
-Donate link: https://www.patreon.com/AhsanRiad
+Donate link: https://github.com/aburiad
 Tags: preloader, loading screen, loading, wordpress preloader
 Requires at least: 5.0
 Tested up to: 6.6

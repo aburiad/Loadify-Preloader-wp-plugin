@@ -2,8 +2,8 @@
 /**
  * Plugin Name: Loadify-Preloader
  * Plugin URL: https://github.com/aburiad/Loadify-Preloader
- * Text Domain: loadifypreloader
- * Domain Path: /languages/
+ * Text Domain: loadify-preloader
+ * Domain Path: /languages
  * Description: loadify-preloader : A loading screen add-on for your WordPress website.
  * Version: 1.0.0
  * Author: Riad

@@ -37,19 +37,28 @@ class loadifypreloaderFrontend
      */
     public function loadifypreloader_scripts()
     {
-        // Retrieve the selected font from options or fallback to 'Roboto'
+        // Retrieve the options and check if preloader is active
         $data = get_option('loadifypreloader_data');
         $options = maybe_unserialize($data);
-        $selected_font = isset($options['loadifypreloader_google_font']) ? $options['loadifypreloader_google_font'] : 'Roboto';
-
-        // Enqueue Google Font
-        $font_url = 'https://fonts.googleapis.com/css2?family=' . urlencode($selected_font) . '&display=swap';
-        wp_enqueue_style('loadifypreloader_google_font', $font_url, array(), null);
-
-        // Enqueue preloader styles and scripts
-        wp_enqueue_style('loadifypreloader-preloader-css', loadifypreloader_URL . '/assets/css/frontend.css', array(), loadifypreloader_VERSION, 'all');
-        wp_enqueue_script('loadifypreloader-preloader-js', loadifypreloader_URL . '/assets/js/ws-preloader.js', array('jquery'), loadifypreloader_VERSION, true);
+        $is_preloader_active = isset($options['preloader_status']) && $options['preloader_status'] === '1';
+    
+        if ($is_preloader_active) {
+            // Retrieve the selected font from options or fallback to 'Roboto'
+            $selected_font = isset($options['loadifypreloader_google_font']) ? $options['loadifypreloader_google_font'] : 'Roboto';
+    
+            // Enqueue Google Font
+            $font_url = 'https://fonts.googleapis.com/css2?family=' . urlencode($selected_font) . '&display=swap';
+            wp_enqueue_style('loadifypreloader_google_font', $font_url, array(), loadifypreloader_VERSION);
+    
+            // Enqueue preloader styles and scripts
+            wp_enqueue_style('loadifypreloader-preloader-css', loadifypreloader_URL . '/assets/css/frontend.css', array(), loadifypreloader_VERSION, 'all');
+            
+            // Enqueue preloader JavaScript in the footer with defer
+            wp_enqueue_script('loadifypreloader-preloader-js', loadifypreloader_URL . '/assets/js/ws-preloader.js', array('jquery'), loadifypreloader_VERSION, true);
+            wp_script_add_data('loadifypreloader-preloader-js', 'defer', true);
+        }
     }
+    
 
     /**
      * Render the preloader HTML
